@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MotivateMe.AddPage"
+             Title="Add Activity"
+             Icon="add.png">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="StartAndExpand"
+                     Padding="10,10,10,0"
+                HorizontalOptions="FillAndExpand">
+            <Label Text="Add Workout" />
+            <Picker Title="Activity Type" SelectedIndex="0" HorizontalOptions="FillAndExpand">
+                <Picker.Items>
+                    <x:String>Run</x:String>
+                    <x:String>Bike</x:String>
+                    <x:String>Crossfit</x:String>
+                    <x:String>Yoga</x:String>
+                    <x:String>Walk</x:String>
+                </Picker.Items>
+            </Picker>
+            <Label Text="Distance" />
+            <Entry Keyboard="Numeric" x:Name="distance" />
+            <Label Text="Calories" />
+            <Entry Keyboard="Numeric" x:Name="calories" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
