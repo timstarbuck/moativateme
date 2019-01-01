@@ -14,9 +14,10 @@ namespace MotivateMe
             MainPage = new MainPage();
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
             // Handle when your app starts
+            await AchievementCalculator.GetInstance().CalculateAchievementsAsync();
         }
 
         protected override void OnSleep()
@@ -27,6 +28,7 @@ namespace MotivateMe
         protected override void OnResume()
         {
             // Handle when your app resumes
+            // await AchievementCalculator.GetInstance().CalculateAchievementsAsync();
         }
     }
 }

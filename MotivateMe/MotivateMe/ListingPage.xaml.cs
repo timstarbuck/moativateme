@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.LocalNotifications;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +17,26 @@ namespace MotivateMe
 		{
 			InitializeComponent ();
 		}
-	}
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            listView.ItemsSource = await SqliteDataAccess.GetInstance().GetActivitiesAsync();
+        }
+
+        void OnListItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            Console.WriteLine(e.SelectedItem);
+            // TODO navigate to details view
+            //if (e.SelectedItem != null)
+            //{
+            //    await Navigation.PushAsync(new TodoItemPage
+            //    {
+            //        BindingContext = e.SelectedItem as TodoItem
+            //    });
+            //}
+        }
+
+    }
 }

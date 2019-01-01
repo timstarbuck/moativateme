@@ -6,6 +6,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Plugin.LocalNotifications;
+using Xamarin.Forms;
 
 namespace MotivateMe.Droid
 {
@@ -20,6 +22,27 @@ namespace MotivateMe.Droid
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
+
+            MessagingCenter.Subscribe<AchievementCalculator, string>(this, "Achievement", (sender, arg) =>
+            {
+                var icon = Resource.Drawable.ic_stat_thumb_up;
+                switch ((string)arg)
+                {
+                    case "Gold":
+                        icon = Resource.Drawable.ic_stat_thumb_up_gold;
+                        break;
+                    case "Silver":
+                        icon = Resource.Drawable.ic_stat_thumb_up_silver;
+                        break;
+                    case "Bronze":
+                        icon = Resource.Drawable.ic_stat_thumb_up_bronze;
+                        break;
+                }
+                Console.WriteLine("Setting icon {0}, {1}", arg, icon);
+                LocalNotificationsImplementation.NotificationIconId = icon;
+            });
+
+            
         }
     }
 }

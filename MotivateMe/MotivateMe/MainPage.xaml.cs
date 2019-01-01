@@ -7,6 +7,8 @@ using Xamarin.Forms;
 
 namespace MotivateMe
 {
+    //TODO convert to mvvm
+
     public partial class MainPage : TabbedPage
     {
         public MainPage()
