@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using Plugin.LocalNotifications;
 using Xamarin.Forms;
+using MotivateMe.Services;
 
 namespace MotivateMe.Droid
 {

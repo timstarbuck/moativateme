@@ -14,6 +14,7 @@ namespace MotivateMe.Models
 
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
+
         public string Name { get; set; }
 
         public string Type { get; set; }
@@ -46,6 +47,17 @@ namespace MotivateMe.Models
             sb.AppendFormat("MetricTwo: {0}", MetricTwo).AppendLine();
             sb.AppendFormat("Timestamp: {0}", Timestamp).AppendLine();
             return sb.ToString();
+        }
+
+        public bool canSave()
+        {
+
+            return !String.IsNullOrEmpty(this.Name) &&
+                    !String.IsNullOrEmpty(this.Type) &&
+                    this.MetricOne > 0 &&
+                    this.MetricTwo > 0 &&
+                    this.Timestamp != null && this.Timestamp != DateTime.MinValue;
+
         }
     }
 }

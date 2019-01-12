@@ -2,29 +2,52 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:behaviors="clr-namespace:MotivateMe.Behaviors;assembly=MotivateMe"
+             xmlns:converters="clr-namespace:MotivateMe.Converters;assembly=MotivateMe"
              x:Class="MotivateMe.AddPage"
              Title="Add Activity"
              Icon="add.png">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+            
+            <Style TargetType="Entry">
+                <Setter Property="FontSize" Value="Small" />
+            </Style>
+            <Style TargetType="Label" BaseResourceKey="SubTitleStyle">
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
+        <ScrollView>
         <StackLayout VerticalOptions="StartAndExpand"
                      Padding="10,10,10,0"
                 HorizontalOptions="FillAndExpand">
-            <Label Text="Add Workout" />
-            <Entry Text="{Binding Name}" Placeholder="Name"/>
-            <Picker Title="Activity Type" SelectedItem="{Binding Type}"  HorizontalOptions="FillAndExpand">
-                <Picker.Items>
-                    <x:String>Run</x:String>
-                    <x:String>Bike</x:String>
-                    <x:String>Crossfit</x:String>
-                    <x:String>Yoga</x:String>
-                    <x:String>Walk</x:String>
-                </Picker.Items>
+            <Label Text="Add Workout" Style="{DynamicResource TitleStyle}" />
+            <Label Text="Name" />
+            <Entry Text="{Binding ActivityName.Value, Mode=TwoWay}" Placeholder="Activity Name">
+            </Entry>
+                <Label IsVisible="{Binding ActivityName.IsValid, Converter={StaticResource InverseBoolConverter}}"
+					Text="{Binding ActivityName.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+					Style="{StaticResource ValidationErrorLabelStyle}" />
+            <Label Text="Type" />
+                <Picker Title="Activity Type" SelectedItem="{Binding ActivityType.Value, Mode=TwoWay}" ItemsSource="{Binding ActivityTypes}"  HorizontalOptions="FillAndExpand" FontSize="Small">
             </Picker>
-            <Entry Keyboard="Numeric" x:Name="distance" Text="{Binding MetricOne}" Placeholder="Distance"/>
-            <Entry Keyboard="Numeric" x:Name="calories" Text="{Binding MetricTwo}" Placeholder="Calories"/>
-            <DatePicker Date="{Binding Timestamp}"/>
-            <TimePicker Time="{Binding Time}" />
-            <Button Text="Add Entry" Clicked="Button_Clicked"/>
+                <Label IsVisible="{Binding ActivityType.IsValid, Converter={StaticResource InverseBoolConverter}}"
+					Text="{Binding ActivityType.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+					Style="{StaticResource ValidationErrorLabelStyle}" />
+                <Label Text="Distance" />
+            <Entry Keyboard="Numeric" x:Name="distance" Text="{Binding MetricOne.Value, Mode=TwoWay}" Placeholder="Distance" />
+            <Label Text="Calories"  />
+            <Entry Keyboard="Numeric" x:Name="calories" Text="{Binding MetricTwo.Value, Mode=TwoWay}" Placeholder="Calories"/>
+            <Label Text="Date"  />
+            <DatePicker Date="{Binding Timestamp.Value, Mode=TwoWay}" FontSize="Small"/>
+            <Label Text="Time" />
+            <TimePicker Time="{Binding Time.Value, Mode=TwoWay}"  FontSize="Small"/>
+            <Button Text="Add Entry" Command="{Binding SaveActivityCommand}"/>
         </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

@@ -6,7 +6,7 @@
              Title="Listing">
     <ContentPage.Content>
         <StackLayout>
-            <ListView x:Name="listView" Margin="20" ItemSelected="OnListItemSelected">
+            <ListView x:Name="listView" Margin="20" ItemsSource="{Binding Activities}" SelectedItem="Binding SelectedActivity">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

@@ -1,4 +1,5 @@
 ﻿using MotivateMe.Models;
+using MotivateMe.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +14,21 @@ namespace MotivateMe
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class AddPage : ContentPage
 	{
+
+        private MaintainActivityVM ViewModel
+        {
+            get { return BindingContext as MaintainActivityVM;  }
+        }
+
 		public AddPage ()
 		{
 			InitializeComponent ();
 
-            this.BindingContext = new Activity();
+            // this.BindingContext = new Activity();
+            var vm = new MaintainActivityVM(SqliteDataAccess.GetInstance(), AchievementCalculator.GetInstance());
+            this.BindingContext = vm;
+            vm.Page = this;
+
         }
 
 

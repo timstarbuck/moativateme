@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace MotivateMe
+namespace MotivateMe.Services
 {
-    public class AchievementCalculator
+    public class AchievementCalculator : IAchievementCalculator
     {
         private readonly IDataAccess _dac;
         private static  AchievementCalculator _instance;

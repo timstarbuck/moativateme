@@ -1,4 +1,5 @@
-﻿using Plugin.LocalNotifications;
+﻿using MotivateMe.ViewModels;
+using Plugin.LocalNotifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,30 +14,43 @@ namespace MotivateMe
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ListingPage : ContentPage
 	{
-		public ListingPage ()
+
+        private ListingVM ViewModel
+        {
+            get { return BindingContext as ListingVM; }
+        }
+
+        public ListingPage ()
 		{
 			InitializeComponent ();
-		}
+
+            var vm = new ListingVM(SqliteDataAccess.GetInstance());
+            this.BindingContext = vm;
+            vm.Page = this;
+
+        }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
 
-            listView.ItemsSource = await SqliteDataAccess.GetInstance().GetActivitiesAsync();
+            await this.ViewModel.LoadActivitiesAsync();
+
+            // listView.ItemsSource = await SqliteDataAccess.GetInstance().GetActivitiesAsync();
         }
 
-        void OnListItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            Console.WriteLine(e.SelectedItem);
-            // TODO navigate to details view
-            //if (e.SelectedItem != null)
-            //{
-            //    await Navigation.PushAsync(new TodoItemPage
-            //    {
-            //        BindingContext = e.SelectedItem as TodoItem
-            //    });
-            //}
-        }
+        //void OnListItemSelected(object sender, SelectedItemChangedEventArgs e)
+        //{
+        //    Console.WriteLine(e.SelectedItem);
+        //    // TODO navigate to details view
+        //    //if (e.SelectedItem != null)
+        //    //{
+        //    //    await Navigation.PushAsync(new TodoItemPage
+        //    //    {
+        //    //        BindingContext = e.SelectedItem as TodoItem
+        //    //    });
+        //    //}
+        //}
 
     }
 }
